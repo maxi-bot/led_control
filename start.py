@@ -4,16 +4,8 @@ import json
 import pigpio
 import logging
 
-from util import hex2rgb
+from control import parse
 from led import Led
-
-
-def set_led(led, data):
-    if data["type"] == "static":
-        leds[led].set_static_color(hex2rgb(data["color"]))
-    elif data["type"] == "animation":
-        leds[led].start_animation(data["animationType"],
-                                  float(data["animationSpeed"]))
 
 
 async def send_web_config(websocket):
@@ -27,16 +19,7 @@ async def consumer_handler(websocket, path):
         logger.info("Message recived: " + message)
         try:
             data = json.loads(message)
-            if "name" in data:
-                logger.info("Message parsed")
-                led = data["name"]
-                if led == "all":
-                    for led in leds:
-                        set_led(led, data)
-                elif led in leds:
-                    set_led(led, data)
-            else:
-                logger.warning("Message does not contain useful information")
+            parse(leds, data, logger)
         except ValueError:
             logger.warning("Message could not be parsed")
 
@@ -45,6 +28,7 @@ FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(filename='app.log', filemode='a', format=FORMAT, level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.info("Application started")
+
 CONFIG_FILE = "config.json"
 with open(CONFIG_FILE, "r") as f:
     config = json.load(f)
