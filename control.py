@@ -7,8 +7,7 @@ from led import Led
 
 
 class Controller:
-
-    def __init__(self, logger, config_path):
+    def __init__(self, config_path):
         self.logger = logging.getLogger(__name__)
         with open(config_path, "r") as f:
             config = json.load(f)

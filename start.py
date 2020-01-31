@@ -29,8 +29,8 @@ logger = logging.getLogger(__name__)
 logger.info("Application started")
 
 # configuration
-CONFIG_FILE = "config.json"
-controller = Controller(logger, CONFIG_FILE)
+CONFIG_PATH = "config.json"
+controller = Controller(CONFIG_PATH)
 web_config = controller.get_webconfig()
 
 # websocket
