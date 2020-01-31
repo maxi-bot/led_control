@@ -1,11 +1,9 @@
 import asyncio
 import websockets
 import json
-
 import logging
 
 from control import Controller
-
 
 
 async def send_web_config(websocket):
@@ -23,18 +21,18 @@ async def consumer_handler(websocket, path):
         except ValueError:
             logger.warning("Message could not be parsed")
 
-
+# logging
 FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(filename='app.log', filemode='a', format=FORMAT, level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.info("Application started")
 
+# configuration
 CONFIG_FILE = "config.json"
 controller = Controller(logger, CONFIG_FILE)
 web_config = controller.get_webconfig()
 
-
+# websocket
 start_server = websockets.serve(consumer_handler, "0.0.0.0", 6789)
-
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
