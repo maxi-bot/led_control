@@ -6,7 +6,7 @@
 	font-weight: bold;
 }
 
-#page {
+.page {
 	font-size: 3.5em;
 	text-align: center;
 	width:33%;
@@ -79,7 +79,7 @@ input[type=range]#aValManual {
 	padding-bottom:20px;
 }
 
-#pick {
+.pick {
 	width:50%;
 	height:200px;
 }
@@ -90,7 +90,7 @@ input[type=range]#aValSelect {
 	padding-top:35px;
 	padding-bottom:35px;
 }
-#animation {
+.animation {
 	font-size: 3.5em;
 	text-align: center;
 	width:50%;

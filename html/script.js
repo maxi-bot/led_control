@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			for(i = 0; i < slider.length;i++){	
 				slider[i].addEventListener("input", preview);
 			}
-														});
+	    });
 
 function readConfig(data){
 	config = JSON.parse(data);
@@ -98,7 +98,6 @@ function show(page){
 	document.getElementById("animationSelection").style.display = "none";
 	document.getElementById(page).style.display = "inline";
 }
-	
 
 var ws = new WebSocket("ws://localhost:6789");
 ws.onmessage = function (event) {
