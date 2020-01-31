@@ -21,6 +21,7 @@ async def consumer_handler(websocket, path):
         except ValueError:
             logger.warning("Message could not be parsed")
 
+__name__ = "start"
 # logging
 FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(filename='app.log', filemode='a', format=FORMAT, level=logging.INFO)

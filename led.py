@@ -24,7 +24,7 @@ class Led:
         self.color = color
         for i in range(3):
             if color[i] > 255 or color[i] < 0:
-                raise Exception()
+                raise Exception
         for i in range(3):
             self.pizw.set_PWM_dutycycle(self.pins[i], color[i])
 
