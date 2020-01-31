@@ -1,11 +1,11 @@
 import asyncio
 import websockets
 import json
-import pigpio
+
 import logging
 
-from control import parse
-from led import Led
+from control import Controller
+
 
 
 async def send_web_config(websocket):
@@ -16,10 +16,10 @@ async def consumer_handler(websocket, path):
     logger.info("Client connected")
     await send_web_config(websocket)
     async for message in websocket:
-        logger.info("Message recived: " + message)
+        logger.info("Message received: {}".format(message))
         try:
             data = json.loads(message)
-            parse(leds, data, logger)
+            controller.parse(data)
         except ValueError:
             logger.warning("Message could not be parsed")
 
@@ -30,15 +30,9 @@ logger = logging.getLogger(__name__)
 logger.info("Application started")
 
 CONFIG_FILE = "config.json"
-with open(CONFIG_FILE, "r") as f:
-    config = json.load(f)
-leds = dict()
-pizw = pigpio.pi()
-for led_strip in config.get("leds"):
-    leds[led_strip.get("name")] = Led(pizw, led_strip.get("pins"))
-web_config = dict()
-web_config["leds"] = list(leds.keys())
-logger.info("Configuration loaded with {} LED(s)".format(len(leds)))
+controller = Controller(logger, CONFIG_FILE)
+web_config = controller.get_webconfig()
+
 
 start_server = websockets.serve(consumer_handler, "0.0.0.0", 6789)
 

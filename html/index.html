@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Raspberry Pi LED</title>
+		<script src="script.js"></script>
+		<link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+		<select id="selectLed">
+			<option value="all">all</option>
+		</select>
+		<table>
+			<td id="page" onclick="show('manualColorSelection')">Manual Color</td>
+			<td id="page" onclick="show('colorSelection')">Start</td>
+			<td id="page" onclick="show('animationSelection')">Animation</td>
+		</table>
+		
+		<div id="colorSelection" >
+		<input type="range" id="aValSelect" value="1" min="0" max="1" step="0.01"/>
+		<table>
+		<tr>
+			<td id="pick" style="background-color:#ffffff" onclick="setLedHex('#ffffff')"></td>
+			<td id="pick" style="background-color:#000000" onclick="setLedHex('#000000')"></td>
+		</tr>
+		<tr>
+			<td id="pick" style="background-color:#ff0000" onclick="setLedHex('#ff0000')"></td>
+			<td id="pick" style="background-color:#00ff00" onclick="setLedHex('#00ff00')"></td>
+		</tr>
+		<tr>
+			<td id="pick" style="background-color:#0000ff" onclick="setLedHex('#0000ff')"></td>
+			<td id="pick" style="background-color:#ffff00" onclick="setLedHex('#ffff00')"></td>
+		</tr>
+		<tr>
+			<td id="pick" style="background-color:#ff00ff" onclick="setLedHex('#ff00ff')"></td>
+			<td id="pick" style="background-color:#00ffff" onclick="setLedHex('#00ffff')"></td>
+		</tr>
+		<tr>
+			<td id="pick" style="background-color:#A52A2A" onclick="setLedHex('#A52A2A')"></td>
+			<td id="pick" style="background-color:#F08080" onclick="setLedHex('#F08080')"></td>
+		</tr>
+		<tr>
+			<td id="pick" style="background-color:#7FFFD4" onclick="setLedHex('#7FFFD4')"></td>
+			<td id="pick" style="background-color:#6B8E23" onclick="setLedHex('#6B8E23')"></td>
+		</tr>
+		</table>
+		</div>
+		
+		<div id="animationSelection" style="display:none">
+		<input type="range" id="speed" value="1" min="0.1" max="10" step="0.01"/>
+		<table>
+		<tr>
+			<td id="animation" onclick="animation('random')">Random</td>
+			<td id="animation" onclick="animation('stop')">Stop</td>
+		</tr>
+		<tr>
+			<td id="animation" onclick="animation('colorcircle')">Colorcircle</td>
+			<td id="animation" onclick="animation('breathing')">Breathing</td>
+		</tr>
+		<tr>
+			<td id="animation" onclick="animation('randombreathing')">RandomBreathing</td>
+			<td id="animation" onclick="animation('colorcirclebreathing')">ColorcycleBreathing</td>
+		</tr>
+		</table>
+		</div>
+		
+		<div id="manualColorSelection" style="display:none">
+		<input type="range" id="rVal" value="255" min="0" max="255" step="1"/>
+		<input type="range" id="gVal" value="255" min="0" max="255" step="1"/>			
+		<input type="range" id="bVal" value="255" min="0" max="255" step="1"/>
+		<input type="range" id="aValManual" value="1" min="0" max="1" step="0.01"/>		
+		<p id="preview" onclick="setLed()"/>
+		</div>
+	</body>	
+</html>
