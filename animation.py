@@ -1,6 +1,8 @@
 import threading
 import time
 import colorsys
+import abc
+from abc import ABC
 
 from random import randint
 
@@ -10,7 +12,7 @@ class AnimationHandler(object):
         self.led = led
         self.animationSpeed = 1
         self.animationRunning = False
-        self.animationType = Animation()
+        self.animationType = AnimationRandom()
         self.thread = threading.Thread(target=self.animation)
 
     def set_animation_type(self, animation_type):
@@ -48,11 +50,19 @@ class AnimationHandler(object):
             time.sleep(self.animationType.get_delay() * 1 / self.animationSpeed)
 
 
-class Animation(object):
-    pass
+class Animation(abc.ABC):
+    @staticmethod
+    @abc.abstractmethod
+    def next_color():
+        pass
+
+    @staticmethod
+    @abc.abstractmethod
+    def get_delay():
+        pass
 
 
-class AnimationAbstractBreathing(Animation):
+class AnimationAbstractBreathing(Animation, ABC):
     def __init__(self):
         self.down = True
         self.percentage = 1
@@ -70,16 +80,6 @@ class AnimationAbstractBreathing(Animation):
             else:
                 self.down = True
                 self.percentage -= 0.01
-
-
-class AnimationOff(Animation):
-    @staticmethod
-    def next_color():
-        return 0, 0, 0
-
-    @staticmethod
-    def get_delay():
-        return 0
 
 
 class AnimationRandom(Animation):
