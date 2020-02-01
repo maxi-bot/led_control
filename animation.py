@@ -80,6 +80,7 @@ class AnimationAbstractBreathing(Animation, ABC):
             else:
                 self.down = True
                 self.percentage -= 0.01
+        self.percentage = round(self.percentage, 2)
 
 
 class AnimationRandom(Animation):

@@ -73,3 +73,5 @@ ZeroDivisionError: division by zero
 2020-02-01 20:38:54,715 - start - INFO - Message received: {"name":"bed","type":"animation","animationType":"colorcirclebreathing","animationSpeed":"1"}
 2020-02-01 20:38:54,715 - control - INFO - Message parsed
 2020-02-01 20:38:54,717 - control - INFO - Led bed set to animation colorcirclebreathing
+2020-02-01 20:47:58,212 - start - INFO - Application started
+2020-02-01 20:47:58,212 - control - INFO - Configuration from config.json loaded with 2 LED(s)
