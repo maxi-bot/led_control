@@ -134,7 +134,7 @@ class AnimationColorCircleBreathing(AnimationAbstractBreathing):
 
     def next_color(self):
         self.breath()
-        if not self.percentage:
+        if self.percentage <= 0:
             self.hue = (self.hue + 50) % 360
         color = colorsys.hsv_to_rgb(self.hue / 360, 1, 1)
         return (round(self.percentage * 255 * color[0]),
@@ -153,7 +153,7 @@ class AnimationRandomBreathing(AnimationAbstractBreathing):
 
     def next_color(self):
         self.breath()
-        if not self.percentage:
+        if self.percentage <= 0:
             self.color = (4 * randint(0, 63), 4 * randint(0, 63), 4 * randint(0, 63))
         return (round(self.percentage * self.color[0]),
                 round(self.percentage * self.color[1]),
