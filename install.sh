@@ -8,7 +8,7 @@ systemctl enable pigpiod
 systemctl start pigpiod
 IP=$(hostname -I)
 IP=${IP%% *}
-sed -i "s/localhost/$IP/g" script.js
+sed -i "s/localhost/$IP/g" html/script.js
 cp html/* /var/www/html
 service apache start
 nohup python3 start.py
