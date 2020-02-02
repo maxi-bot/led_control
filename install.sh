@@ -11,4 +11,4 @@ IP=${IP%% *}
 sed -i "s/localhost/$IP/g" html/script.js
 cp html/* /var/www/html
 service apache start
-nohup python3 start.py
+nohup python3 start.py &
