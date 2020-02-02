@@ -99,7 +99,8 @@ function show(page){
 	document.getElementById(page).style.display = "inline";
 }
 
-var ws = new WebSocket("ws://localhost:6789");
+var ip = "localhost"
+var ws = new WebSocket("ws://"+ip+":6789");
 ws.onmessage = function (event) {
   readConfig(event.data);
 }
