@@ -1,5 +1,5 @@
 #!/bin/bash
-apt install pigpio apache2 python3
+apt install pigpio nginx python3
 pip3 install websockets
 rm pigpio.py
 systemctl enable pigpiod
@@ -8,5 +8,5 @@ IP=$(hostname -I)
 IP=${IP%% *}
 sed -i "s/localhost/$IP/g" html/script.js
 cp html/* /var/www/html
-service apache start
+service nginx start
 nohup python3 start.py &
