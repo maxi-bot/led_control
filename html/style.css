@@ -20,29 +20,35 @@ table{
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
-  margin: 10.75px 0;
-}
-input[type=range]:focus {
-  outline: none;
-}
-input[type=range]::-moz-range-track {
-  width: 100%;
   height: 60px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border-radius: 1.3px;
-  border: 0.2px solid #010101;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  margin: 25px 0;
 }
-input[type=range]::-moz-range-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  height: 100px;
+
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100px;
-  border-radius: 50px;
-  background: #ffffff;
+  height: 100px;
+  border-radius: 100%;
+  border: 1px solid #666666;
+  background: #cccccc;
   cursor: pointer;
 }
 
+input[type=range]::-moz-range-thumb {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: 1px solid #666666;
+  background: #cccccc;
+  cursor: pointer;
+}
 #preview{
 	height:150px;
 	width:100%;
@@ -50,45 +56,25 @@ input[type=range]::-moz-range-thumb {
 	border-radius: 2px;
 }
 
-input[type=range]#rVal::-moz-range-track {
+input[type=range]#rVal {
 	background:red;
 }
-input[type=range]#gVal::-moz-range-track {
+input[type=range]#gVal {
 	background:lime;
 }
-input[type=range]#bVal::-moz-range-track {
+input[type=range]#bVal {
 	background:blue;
 }
-input[type=range]#rVal {
-	padding-top:35px;
-    padding-bottom:35px;
-}
-input[type=range]#gVal {
-    padding-top:35px;
-    padding-bottom:35px;
-}
-input[type=range]#bVal {
-	padding-top:35px;
-	padding-bottom:35px;
-}
-input[type=range]#aValManual::-moz-range-track{
+input[type=range]#aValManual{
 	background: #2f71a9;
-}
-input[type=range]#aValManual {
-	padding-top:35px;
-	padding-bottom:20px;
 }
 
 .pick {
 	width:50%;
 	height:200px;
 }
-input[type=range]#aValSelect::-moz-range-track{
+input[type=range]#aValSelect{
 	background: #2f71a9;
-}
-input[type=range]#aValSelect {
-	padding-top:35px;
-	padding-bottom:35px;
 }
 .animation {
 	font-size: 3.5em;
@@ -97,10 +83,6 @@ input[type=range]#aValSelect {
 	height:200px;
 	border:2px solid #000000;
 }
-input[type=range]#speed::-moz-range-track{
+input[type=range]#speed{
 	background: #2f71a9;
-}
-input[type=range]#speed {
-	padding-top:35px;
-	padding-bottom:35px;
 }
