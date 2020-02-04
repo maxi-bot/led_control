@@ -70,13 +70,6 @@ function preview() {
 	return 0;
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-			var slider = document.getElementsByTagName("input");
-			for(i = 0; i < slider.length;i++){	
-				slider[i].addEventListener("input", preview);
-			}
-	    });
-
 function readConfig(data){
 	config = JSON.parse(data);
 	config.leds.forEach(addOption)
@@ -99,8 +92,19 @@ function show(page){
 	document.getElementById(page).style.display = "inline";
 }
 
+document.addEventListener("DOMContentLoaded", function(){
+			var slider = document.getElementsByTagName("input");
+			for(i = 0; i < slider.length;i++){
+				slider[i].addEventListener("input", preview);
+			}
+	    });
+
+
+
 var ip = "localhost"
 var ws = new WebSocket("ws://"+ip+":6789");
 ws.onmessage = function (event) {
   readConfig(event.data);
 }
+window.onload = preview;
+
