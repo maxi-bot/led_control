@@ -1,77 +1,231 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Raspberry Pi LED</title>
-		<script src="script.js"></script>
-		<link rel="stylesheet" href="style.css"/>
-    </head>
-    <body>
-		<select id="selectLed">
-			<option value="all">all</option>
-		</select>
-		<table>
-			<tr>
-				<td class="page" onclick="show('manualColorSelection')">Manual Color</td>
-				<td class="page" onclick="show('colorSelection')">Start</td>
-				<td class="page" onclick="show('animationSelection')">Animation</td>
-			</tr>
-		</table>
-		
-		<div id="colorSelection" >
-		<input type="range" id="aValSelect" value="1" min="0" max="1" step="0.01"/>
-		<table>
-		<tr>
-			<td class="pick" style="background-color:#ffffff" onclick="setLedHex('#ffffff')"></td>
-			<td class="pick" style="background-color:#000000" onclick="setLedHex('#000000')"></td>
-		</tr>
-		<tr>
-			<td class="pick" style="background-color:#ff0000" onclick="setLedHex('#ff0000')"></td>
-			<td class="pick" style="background-color:#00ff00" onclick="setLedHex('#00ff00')"></td>
-		</tr>
-		<tr>
-			<td class="pick" style="background-color:#0000ff" onclick="setLedHex('#0000ff')"></td>
-			<td class="pick" style="background-color:#ffff00" onclick="setLedHex('#ffff00')"></td>
-		</tr>
-		<tr>
-			<td class="pick" style="background-color:#ff00ff" onclick="setLedHex('#ff00ff')"></td>
-			<td class="pick" style="background-color:#00ffff" onclick="setLedHex('#00ffff')"></td>
-		</tr>
-		<tr>
-			<td class="pick" style="background-color:#A52A2A" onclick="setLedHex('#A52A2A')"></td>
-			<td class="pick" style="background-color:#F08080" onclick="setLedHex('#F08080')"></td>
-		</tr>
-		<tr>
-			<td class="pick" style="background-color:#7FFFD4" onclick="setLedHex('#7FFFD4')"></td>
-			<td class="pick" style="background-color:#6B8E23" onclick="setLedHex('#6B8E23')"></td>
-		</tr>
-		</table>
-		</div>
-		
-		<div id="animationSelection" style="display:none">
-		<input type="range" id="speed" value="1" min="0.1" max="10" step="0.01"/>
-		<table>
-		<tr>
-			<td class="animation" onclick="animation('random')">Random</td>
-			<td class="animation" onclick="animation('stop')">Stop</td>
-		</tr>
-		<tr>
-			<td class="animation" onclick="animation('colorcircle')">Colorcircle</td>
-			<td class="animation" onclick="animation('breathing')">Breathing</td>
-		</tr>
-		<tr>
-			<td class="animation" onclick="animation('randombreathing')">RandomBreathing</td>
-			<td class="animation" onclick="animation('colorcirclebreathing')">ColorcycleBreathing</td>
-		</tr>
-		</table>
-		</div>
-		
-		<div id="manualColorSelection" style="display:none">
-		<input type="range" id="rVal" value="255" min="0" max="255" step="1"/>
-		<input type="range" id="gVal" value="255" min="0" max="255" step="1"/>			
-		<input type="range" id="bVal" value="255" min="0" max="255" step="1"/>
-		<input type="range" id="aValManual" value="1" min="0" max="1" step="0.01"/>		
-		<p id="preview" onclick="setLed()"></p>
-		</div>
-	</body>	
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Led Control
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@ionic/core@latest/css/ionic.bundle.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/@ionic/core@latest/dist/ionic/ionic.esm.js"
+    ></script>
+    <script
+      nomodule=""
+      src="https://unpkg.com/@ionic/core@latest/dist/ionic/ionic.js"
+    ></script>
+  </head>
+  <body>
+    <ion-app>
+      <ion-tabs>
+        <ion-menu side="start">
+          <ion-header>
+            <ion-toolbar translucent>
+              <ion-title>Menu</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-list>
+              <ion-item id="btn-ip" button>
+                <ion-icon name="globe" slot="start"></ion-icon>
+                <ion-label>IP</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="moon" slot="start"></ion-icon>
+                <ion-label>darkmode</ion-label>
+                <ion-toggle id="toggle-darkmode"></ion-toggle>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ion-menu>
+
+        <ion-tab tab="tab-color">
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+              </ion-buttons>
+              <ion-title>Color</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md="6" offset-md="3">
+                  <ion-list lines="none">
+                    <ion-item>
+                      <ion-range
+                        id="input-red"
+                        min="0"
+                        max="255"
+                        step="1"
+                        value="255"
+                        color="red"
+                      ></ion-range>
+                    </ion-item>
+                    <ion-item>
+                      <ion-range
+                        id="input-green"
+                        min="0"
+                        max="255"
+                        step="1"
+                        value="255"
+                        color="green"
+                      ></ion-range>
+                    </ion-item>
+                    <ion-item>
+                      <ion-range
+                        id="input-blue"
+                        min="0"
+                        max="255"
+                        step="1"
+                        value="255"
+                        color="blue"
+                      ></ion-range>
+                    </ion-item>
+                    <ion-item>
+                      <ion-range
+                        id="input-brightness"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value="1"
+                      >
+                        <ion-icon
+                          size="small"
+                          slot="start"
+                          name="sunny"
+                        ></ion-icon>
+                        <ion-icon
+                          size="large"
+                          slot="end"
+                          name="sunny"
+                        ></ion-icon>
+                      </ion-range>
+                    </ion-item>
+                    <ion-item>
+                      <canvas id="canvas-preview"></canvas>
+                    </ion-item>
+                    <ion-item>
+                      <ion-button id="btn-addfav" margin>
+                        <ion-icon slot="start" name="add"></ion-icon>
+                        Add to favorite
+                      </ion-button>
+                      <ion-button id="btn-apply" margin>
+                        <ion-icon slot="start" name="eye"></ion-icon>Apply
+                      </ion-button>
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-content>
+        </ion-tab>
+
+        <ion-tab tab="tab-favorite" main>
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+              </ion-buttons>
+              <ion-title>Favorite</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md="6" offset-md="3">
+                  <ion-list id="list-fav" lines="none"> </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-content>
+        </ion-tab>
+
+        <ion-tab tab="tab-animation">
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+              </ion-buttons>
+              <ion-title>Animation</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md="6" offset-md="3">
+                  <ion-list lines="none">
+                    <ion-item button text-center id="btn-random">
+                      <ion-label>Random</ion-label>
+                    </ion-item>
+                    <ion-item button text-center id="btn-breath">
+                      <ion-label>Breathing</ion-label>
+                    </ion-item>
+                    <ion-item button text-center id="btn-circle">
+                      <ion-label>Colorcircle</ion-label>
+                    </ion-item>
+                    <ion-item button text-center id="btn-rndbreath">
+                      <ion-label>RandomBreathing</ion-label>
+                    </ion-item>
+                    <ion-item button text-center id="btn-circlebreath">
+                      <ion-label>ColorcycleBreathing</ion-label>
+                    </ion-item>
+                    <ion-item button text-center id="btn-stop">
+                      <ion-label>Stop</ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-range
+                        id="input-speed"
+                        min="0.1"
+                        max="10"
+                        step="0.1"
+                        value="1"
+                      >
+                        <ion-icon
+                          size="small"
+                          slot="start"
+                          name="speedometer"
+                        ></ion-icon>
+                        <ion-icon
+                          size="large"
+                          slot="end"
+                          name="speedometer"
+                        ></ion-icon>
+                      </ion-range>
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-content>
+        </ion-tab>
+
+        <ion-tab-bar slot="bottom">
+          <ion-tab-button tab="tab-color">
+            <ion-icon name="color-palette" size="large"></ion-icon>
+            <ion-label>Color</ion-label>
+          </ion-tab-button>
+
+          <ion-tab-button tab="tab-favorite">
+            <ion-icon name="star" size="large"></ion-icon>
+            <ion-label>Favorite</ion-label>
+          </ion-tab-button>
+
+          <ion-tab-button tab="tab-animation">
+            <ion-icon name="flash" size="large"></ion-icon>
+            <ion-label>Animation</ion-label>
+          </ion-tab-button>
+        </ion-tab-bar>
+      </ion-tabs>
+    </ion-app>
+    <ion-menu-controller></ion-menu-controller>
+    <ion-alert-controller></ion-alert-controller>
+    <script src="script.js"></script>
+  </body>
 </html>
